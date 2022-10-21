@@ -1,6 +1,5 @@
 package projects;
 
-import java.sql.DriverManager;
 
 import projects.dao.DbConnection;
 
