@@ -31,6 +31,9 @@ public class ProjectsApp {
 
 	}
 
+	/**
+	 * Takes user selection and calls method to process it 
+	 */
 	private void processUserSelections() {
 
 		boolean done = false;
@@ -67,7 +70,11 @@ public class ProjectsApp {
 		}
 
 	}
-
+	
+	
+	/**
+	 * Gets user selection to delete project and calls on method to delete it 
+	 */
 	private void deleteProject() {
 		listProjects();
 		Integer projectId = getIntInput("Enter the Project ID of the Project to delete");
@@ -82,7 +89,9 @@ public class ProjectsApp {
 			}
 		}
 	}
-
+	/**
+	 * Gets user input and calls method to update project columns in Project Table for a Project
+	 */
 	private void updateProjectDetails() {
 		if (Objects.isNull(currentProject)) {
 			System.out.println("\nPlease Select a Project");
@@ -107,6 +116,10 @@ public class ProjectsApp {
 		currentProject = projectService.fetchProjectById(currentProject.getProjectId());
 	}
 
+	
+	/**
+	 * Calls method to list projects and gets user input to select a project 
+	 */
 	private void selectProject() {
 		listProjects();
 		Integer projectId = getIntInput("Enter a Project ID to select a Project: ");
@@ -116,7 +129,10 @@ public class ProjectsApp {
 		currentProject = projectService.fetchProjectById(projectId);
 
 	}
-
+	
+	/**
+	 * Prints out all projects in Project Table
+	 */
 	private void listProjects() {
 		List<Project> projects = projectService.fetchAllProjects();
 		System.out.println("\nProjects: ");
@@ -125,7 +141,9 @@ public class ProjectsApp {
 				project -> System.out.println("  " + project.getProjectId() + ": " + project.getProjectName()));
 
 	}
-
+	/**
+	 * Method to get user input for a new Project 
+	 */
 	private void createProject() {
 		String projectName = getStringInput("Enter the project name");
 		BigDecimal estimatedHours = getDecimalInput("Enter the estimated hours");
@@ -144,7 +162,11 @@ public class ProjectsApp {
 		Project dbProject = projectService.addProject(project);
 		System.out.println("You have successfully created project: " + dbProject);
 	}
-
+	/**
+	 * Takes User Input and Converts it to Decimal type
+	 * @param prompt
+	 * @return
+	 */
 	private BigDecimal getDecimalInput(String prompt) {
 		String input = getStringInput(prompt);
 
@@ -158,7 +180,10 @@ public class ProjectsApp {
 			throw new DbException(input + " is not a valid decimal number");
 		}
 	}
-
+	/**
+	 * Method to Print Out Menu Options and Get User Selection 
+	 * @return
+	 */
 	private int getUserSelection() {
 		printOperations();
 
@@ -166,7 +191,11 @@ public class ProjectsApp {
 
 		return Objects.isNull(input) ? -1 : input;
 	}
-
+	/**
+	 * Scanner to Get Integer type User Input
+	 * @param prompt
+	 * @return
+	 */
 	private Integer getIntInput(String prompt) {
 		String input = getStringInput(prompt);
 
@@ -181,6 +210,11 @@ public class ProjectsApp {
 		}
 	}
 
+	/**
+	 * Scanner to Get String type User Input 
+	 * @param prompt
+	 * @return
+	 */
 	private String getStringInput(String prompt) {
 		System.out.print(prompt + ": ");
 		String input = scanner.nextLine();
@@ -188,6 +222,9 @@ public class ProjectsApp {
 		return input.isBlank() ? null : input.trim();
 	}
 
+	/**
+	 * Prints out Menu of Options for User Selections
+	 */
 	private void printOperations() {
 		System.out.println("\nThese are the available selections. Press the ENTER key to quit:");
 
@@ -200,6 +237,10 @@ public class ProjectsApp {
 		}
 	}
 
+	/**
+	 * Exists Menu 
+	 * @return
+	 */
 	private boolean exitMenu() {
 		System.out.println("\nExiting the menu. Goodbye!");
 		return true;

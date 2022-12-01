@@ -26,6 +26,11 @@ public class ProjectDao extends DaoBase {
 	private static final String PROJECT_CATEGORY_TABLE = "project_category";
 	private static final String STEP_TABLE = "step";
 	
+	/**
+	 * Method to add a Project to the Project Table
+	 * @param project
+	 * @return
+	 */
 	public Project insertProject(Project project) {
 		// @formatter:off
 		String sql = ""
@@ -63,7 +68,10 @@ public class ProjectDao extends DaoBase {
 			throw new DbException(e);
 		}
 	}
-
+	/**
+	 * Method to return a List of all Projects
+	 * @return
+	 */
 	public List<Project> fetchAllProjects() {
 		String sql = "SELECT * FROM " + PROJECT_TABLE + " ORDER BY project_name";
 		
@@ -90,6 +98,11 @@ public class ProjectDao extends DaoBase {
 		}
 	}
 
+	/**
+	 * Method to return a selected Project and project details 
+	 * @param projectId
+	 * @return
+	 */
 	public Optional<Project> fetchProjectById(Integer projectId) {
 		String sql = "SELECT * FROM " + PROJECT_TABLE + " WHERE project_id = ?";
 		
@@ -128,6 +141,13 @@ public class ProjectDao extends DaoBase {
 		}
 	}
 
+	/**
+	 * Method to get a List of Categories for a Project 
+	 * @param conn
+	 * @param projectId
+	 * @return
+	 * @throws SQLException
+	 */
 	private List<Category> fetchCategoriesForProject(Connection conn, Integer projectId) throws SQLException {
 		// @formatter:off
 		String sql = "SELECT c.* FROM " + CATEGORY_TABLE + " c " + "JOIN  " + PROJECT_CATEGORY_TABLE + " pc USING (category_id) " + "WHERE project_id = ?";
@@ -147,6 +167,13 @@ public class ProjectDao extends DaoBase {
 		}
 	}
 
+	/**
+	 * Method to get a List of Steps for a Project 
+	 * @param conn
+	 * @param projectId
+	 * @return
+	 * @throws SQLException
+	 */
 	private List<Step>  fetchStepsForProject(Connection conn, Integer projectId) throws SQLException {
 		// @formatter:off
 		String sql = "SELECT * FROM " + STEP_TABLE + " WHERE project_id = ?";
@@ -166,6 +193,13 @@ public class ProjectDao extends DaoBase {
 		}
 	}
 
+	/**
+	 * Method to get a List of Materials for a Project 
+	 * @param conn
+	 * @param projectId
+	 * @return
+	 * @throws SQLException
+	 */
 	private List<Material> fetchMaterialsForProject(Connection conn, Integer projectId) throws SQLException {
 		// @formatter:off
 		String sql = "SELECT * FROM " + MATERIAL_TABLE + " m WHERE m.project_id = ?";
@@ -185,6 +219,11 @@ public class ProjectDao extends DaoBase {
 		}
 	}
 
+		/**
+		 * Method to Update a Project details in the Project table
+		 * @param project
+		 * @return
+		 */
 	public boolean modifyProjectDetails(Project project) {
 		// @formatter:off
 		String sql = ""
@@ -219,6 +258,11 @@ public class ProjectDao extends DaoBase {
 		}
 	}
 
+	/**
+	 * Method to Delete Project on Project Table as well as any rows with given project ID 
+	 * @param projectId
+	 * @return
+	 */
 	public boolean deleteProject(Integer projectId) {
 		// @formatter:off
 		String sql = "DELETE FROM " + PROJECT_TABLE + " WHERE project_id = ?";
